@@ -3,6 +3,8 @@ package com.HotelBack.Hotel.DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class RoomDTO {
 
@@ -10,13 +12,13 @@ public class RoomDTO {
     private String roomName;
 
     @JsonProperty("price")
-    private Double price;
+    private BigDecimal price;
 
     @JsonProperty("bed_type")
     private String bedType;
 
     @JsonProperty("area")
-    private String area;
+    private BigDecimal area;
 
     @JsonProperty("capacity")
     private Integer capacity;

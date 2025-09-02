@@ -3,6 +3,8 @@ package com.HotelBack.Hotel.DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class BookingDTO {
 
@@ -13,10 +15,10 @@ public class BookingDTO {
     private Integer room_id;
 
     @JsonProperty("start_date")
-    private String StartDate;
+    private LocalDate StartDate;
 
     @JsonProperty("end_date")
-    private String EndDate;
+    private LocalDate EndDate;
 
     @JsonProperty("status")
     private String status;

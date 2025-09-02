@@ -3,6 +3,8 @@ package com.HotelBack.Hotel.DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.time.Instant;
+
 @Data
 public class ReviewDTO {
 
@@ -19,9 +21,9 @@ public class ReviewDTO {
     private String disadvantages;
 
     @JsonProperty("rating")
-    private Integer rating;
+    private Short rating;
 
     @JsonProperty("created_at")
-    private String created_at;
+    private Instant created_at;
 
 }
