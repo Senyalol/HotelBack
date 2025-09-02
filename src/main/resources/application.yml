@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Hotel
+
+  datasource:
+
+
+#  spring.application.name=Hotel
