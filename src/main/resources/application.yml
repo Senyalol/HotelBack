@@ -3,6 +3,6 @@ spring:
     name: Hotel
 
   datasource:
-
+    driver-class-name: org.postgresql.Driver
 
 #  spring.application.name=Hotel
