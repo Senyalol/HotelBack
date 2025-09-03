@@ -2,7 +2,9 @@ package com.HotelBack.Hotel.Mapping;
 
 import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RoomMapper {
 
     //Из сущности в DTO
@@ -10,6 +12,7 @@ public class RoomMapper {
 
         RoomDTO dto = new RoomDTO();
 
+        dto.setRoomId(entity.getId());
         dto.setRoomName(entity.getRoomName());
         dto.setPrice(entity.getPrice());
         dto.setBedType(entity.getBedType());
@@ -28,6 +31,7 @@ public class RoomMapper {
 
         Room entity = new Room();
 
+        entity.setId(dto.getRoomId());
         entity.setRoomName(dto.getRoomName());
         entity.setPrice(dto.getPrice());
         entity.setBedType(dto.getBedType());

@@ -8,6 +8,9 @@ import java.time.Instant;
 @Data
 public class ReviewDTO {
 
+    @JsonProperty("review_id")
+    private Integer reviewId;
+
     @JsonProperty("user_id")
     private Integer userId;
 

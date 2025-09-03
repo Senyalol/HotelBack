@@ -3,14 +3,16 @@ package com.HotelBack.Hotel.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+//import lombok.Getter;
+//import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Getter
-@Setter
+//@Getter
+//@Setter
+@Data
 @Entity
 @Table(name = "users")
 public class User {

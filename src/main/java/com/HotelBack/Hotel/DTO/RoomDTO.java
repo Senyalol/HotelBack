@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 @Data
 public class RoomDTO {
 
+    @JsonProperty("room_id")
+    private Integer roomId;
+
     @JsonProperty("room_name")
     private String roomName;
 

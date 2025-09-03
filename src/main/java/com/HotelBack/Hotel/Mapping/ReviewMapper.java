@@ -21,6 +21,7 @@ public class ReviewMapper {
 
         ReviewDTO reviewDTO = new ReviewDTO();
 
+        reviewDTO.setReviewId(review.getId());
         reviewDTO.setUserId(review.getUser().getId());
         reviewDTO.setStayDuration(review.getStayDuration());
         reviewDTO.setAdvantages(review.getAdvantages());
@@ -36,6 +37,7 @@ public class ReviewMapper {
 
         Review review = new Review();
 
+        review.setId(reviewDTO.getReviewId());
         review.setUser(userRepository.findById(reviewDTO.getUserId()).get());
         review.setStayDuration(reviewDTO.getStayDuration());
         review.setAdvantages(reviewDTO.getAdvantages());

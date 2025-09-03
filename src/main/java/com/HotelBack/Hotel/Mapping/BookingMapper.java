@@ -24,6 +24,7 @@ public class BookingMapper {
 
         BookingDTO bookingDTO = new BookingDTO();
 
+        bookingDTO.setBookingId(booking.getId());
         bookingDTO.setUserId(booking.getUser().getId());
         bookingDTO.setRoom_id(booking.getRoom().getId());
         bookingDTO.setStartDate(booking.getStartDate());
@@ -39,6 +40,7 @@ public class BookingMapper {
 
         Booking booking = new Booking();
 
+        booking.setId(bookingDTO.getBookingId());
         booking.setUser(userRepository.findById(bookingDTO.getUserId()).get());
 
         booking.setRoom(roomRepository.findById(bookingDTO.getRoom_id()).get());

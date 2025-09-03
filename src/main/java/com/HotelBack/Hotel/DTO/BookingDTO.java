@@ -8,6 +8,9 @@ import java.time.LocalDate;
 @Data
 public class BookingDTO {
 
+    @JsonProperty("booking_id")
+    private int bookingId;
+
     @JsonProperty("user_id")
     private Integer userId;
 

@@ -6,6 +6,9 @@ import lombok.Data;
 @Data
 public class UserDTO {
 
+    @JsonProperty("user_id")
+    private Integer userId;
+
     @JsonProperty("first_name")
     private String firstname;
 
