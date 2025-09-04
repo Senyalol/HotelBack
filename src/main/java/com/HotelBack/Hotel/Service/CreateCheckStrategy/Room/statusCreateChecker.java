@@ -18,6 +18,8 @@ public class statusCreateChecker implements CreateRoomCheck{
             return true;
         }
         else if(room.getStatus() == null){
+            //Нужно протестировать
+            room.setStatus(RoomStatus.свободен.toString());
             return true;
         }
 

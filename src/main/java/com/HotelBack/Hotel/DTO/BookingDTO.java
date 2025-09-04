@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class BookingDTO {
 
     @JsonProperty("booking_id")
-    private int bookingId;
+    private Integer bookingId;
 
     @JsonProperty("user_id")
     private Integer userId;
