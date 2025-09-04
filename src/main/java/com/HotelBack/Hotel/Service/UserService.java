@@ -4,6 +4,7 @@ import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Mapping.UserMapper;
 import com.HotelBack.Hotel.Repository.UserRepository;
+import com.HotelBack.Hotel.Service.CreateCheckStrategy.User.*;
 import com.HotelBack.Hotel.Service.EditCheckStrategy.User.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.transaction.Transactional;
@@ -33,7 +34,16 @@ public class UserService {
     //Метод регистрирующий пользователя в БД
     public UserDTO createUser(UserDTO userDTO) {
 
-        if(userDTO != null) {
+        List<CreateUserCheck> checks = Arrays.asList(
+                new firstNameCreateChecker(),
+                new lastNameCreateChecker(),
+                new emailCreateChecker(userRepository,userMapper),
+                new passwordCreateChecker()
+        );
+
+        UserCreateChecker userChecker = new UserCreateChecker(checks);
+
+        if(userDTO != null || userChecker.check(userDTO)) {
 
             try {
                 userRepository.save(userMapper.DTOToEntity(userDTO));

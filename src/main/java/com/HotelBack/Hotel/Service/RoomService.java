@@ -6,6 +6,7 @@ import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
 import com.HotelBack.Hotel.Mapping.RoomMapper;
 import com.HotelBack.Hotel.Repository.RoomRepository;
+import com.HotelBack.Hotel.Service.CreateCheckStrategy.Room.*;
 import com.HotelBack.Hotel.Service.EditCheckStrategy.Room.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.transaction.Transactional;
@@ -35,9 +36,24 @@ public class RoomService {
  //Метод для добавления комнаты в БД
  public RoomDTO save(RoomDTO roomDTO) {
 
-   if(roomDTO != null){
+     List<CreateRoomCheck> checks = Arrays.asList(
+             new roomNameCreateChecker(), new priceCreateChecker(),
+             new bedTypeCreateChecker(), new areaCreateChecker(),
+             new capacityCreateChecker(), new viewCreateChecker(),
+             new descriptionCreateChecker()
+     );
+
+     RoomCreateChecker checker = new RoomCreateChecker(checks);
+
+   if(roomDTO != null && checker.check(roomDTO)) {
 
     try{
+
+        if(roomDTO.getStatus() == null){
+            roomDTO.setStatus(RoomStatus.свободен.toString());
+        }
+
+
       roomRepository.save(roomMapper.DTOToEntity(roomDTO));
       return roomDTO;
     }
