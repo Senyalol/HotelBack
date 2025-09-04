@@ -1,16 +1,17 @@
-package com.HotelBack.Hotel.Service.EditCheckStrategy;
+package com.HotelBack.Hotel.Service.EditCheckStrategy.Room;
 
 import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
 
-public class PriceChecker implements EditCheck {
+public class AreaChecker implements EditRoomCheck {
 
     @Override
     public void check(RoomDTO roomDTO, Room room) {
 
         if(roomDTO != null){
-            if(roomDTO.getPrice() != null){
-                room.setPrice(roomDTO.getPrice());
+
+            if(roomDTO.getArea() != null){
+                room.setArea(roomDTO.getArea());
             }
 
         }

@@ -6,7 +6,7 @@ import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
 import com.HotelBack.Hotel.Mapping.RoomMapper;
 import com.HotelBack.Hotel.Repository.RoomRepository;
-import com.HotelBack.Hotel.Service.EditCheckStrategy.*;
+import com.HotelBack.Hotel.Service.EditCheckStrategy.Room.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.transaction.Transactional;
 import lombok.Data;
@@ -70,7 +70,7 @@ public class RoomService {
 
     Room editableroom = roomRepository.findById(id);
 
-    List<EditCheck> checks = Arrays.asList(new Room_nameChecker()
+    List<EditRoomCheck> checks = Arrays.asList(new Room_nameChecker()
                                            ,new PriceChecker()
                                            , new BedTypeChecker()
                                            ,new AreaChecker()

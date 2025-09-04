@@ -1,4 +1,4 @@
-package com.HotelBack.Hotel.Service.EditCheckStrategy;
+package com.HotelBack.Hotel.Service.EditCheckStrategy.Room;
 
 import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
@@ -9,16 +9,16 @@ import java.util.List;
 @Data
 public class RoomChecker {
 
-    private List<EditCheck> checks;
+    private List<EditRoomCheck> checks;
 
-    public RoomChecker(List<EditCheck> checks) {
+    public RoomChecker(List<EditRoomCheck> checks) {
         this.checks = checks;
     }
 
 
     public void check(RoomDTO roomDTO, Room room) {
 
-        for (EditCheck checker : checks) {
+        for (EditRoomCheck checker : checks) {
 
             checker.check(roomDTO, room);
 

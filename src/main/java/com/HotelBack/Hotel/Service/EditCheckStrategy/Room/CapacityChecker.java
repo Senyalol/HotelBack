@@ -1,9 +1,9 @@
-package com.HotelBack.Hotel.Service.EditCheckStrategy;
+package com.HotelBack.Hotel.Service.EditCheckStrategy.Room;
 
 import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
 
-public class CapacityChecker implements EditCheck {
+public class CapacityChecker implements EditRoomCheck {
 
     @Override
     public void check(RoomDTO roomDTO, Room room) {
