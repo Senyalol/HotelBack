@@ -1,7 +1,6 @@
 package com.HotelBack.Hotel.Service.CreateCheckStrategy.Booking;
 
 import com.HotelBack.Hotel.DTO.BookingDTO;
-import com.HotelBack.Hotel.Mapping.UserMapper;
 import com.HotelBack.Hotel.Repository.UserRepository;
 
 public class userIdCreateChecker implements CreateBookingCheck{
