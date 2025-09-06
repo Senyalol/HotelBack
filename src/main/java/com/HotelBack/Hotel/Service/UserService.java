@@ -2,8 +2,10 @@ package com.HotelBack.Hotel.Service;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
+import com.HotelBack.Hotel.Entity.UserRole;
 import com.HotelBack.Hotel.Mapping.UserMapper;
 import com.HotelBack.Hotel.Repository.UserRepository;
+import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import com.HotelBack.Hotel.Security.JWTService;
 import com.HotelBack.Hotel.Security.SDTO.JwtAuthenticationDTO;
 import com.HotelBack.Hotel.Security.SDTO.RefreshTokenDTO;
@@ -32,13 +34,15 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
+    private final UserRoleRepository userRoleRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService,UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.userRoleRepository = userRoleRepository;
     }
 
     //Метод регистрирующий пользователя в БД
@@ -57,6 +61,21 @@ public class UserService {
 
             try {
                 userRepository.save(userMapper.DTOToEntity(userDTO));
+
+                UserRole newUserRole = new UserRole();
+                newUserRole.setUser(userRepository.findByEmail(userDTO.getEmail()));
+
+                if(userDTO.getSecretKey().equals("jxCa3WucA4sBzw==")){
+
+                         newUserRole.setRole("ADMIN");
+
+                }
+
+                else if(!userDTO.getSecretKey().equals("jxCa3WucA4sBzw==")){
+                    newUserRole.setRole("USER");
+                }
+
+                userRoleRepository.save(newUserRole);
 
                 return userDTO;
             }

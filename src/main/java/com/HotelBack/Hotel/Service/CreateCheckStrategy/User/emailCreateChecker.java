@@ -25,7 +25,7 @@ public class emailCreateChecker implements CreateUserCheck{
 
         }
         //Проверка на уникальность Email
-        else if(userRepository.findByEmail(userDTO.getEmail()) == null){
+        else if(userRepository.findByEmail(userDTO.getEmail()) != null){
 
             result = false;
 
