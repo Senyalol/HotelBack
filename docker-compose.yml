@@ -11,5 +11,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+
+  hotel:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: 1111
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: zlatadb
+    depends_on:
+      - postgres
+
+
 volumes:
   postgres_data:
