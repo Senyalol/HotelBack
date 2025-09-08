@@ -48,4 +48,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Review> reviews = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<UserRole> roles = new LinkedHashSet<>();
+
 }

@@ -5,6 +5,7 @@ import com.HotelBack.Hotel.DTO.RoomDTO;
 //import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.Room;
 import com.HotelBack.Hotel.Mapping.RoomMapper;
+import com.HotelBack.Hotel.Repository.BookingRepository;
 import com.HotelBack.Hotel.Repository.RoomRepository;
 import com.HotelBack.Hotel.Service.CreateCheckStrategy.Room.*;
 import com.HotelBack.Hotel.Service.EditCheckStrategy.Room.*;
@@ -26,11 +27,13 @@ public class RoomService {
 
  private final RoomRepository roomRepository;
  private final RoomMapper roomMapper;
+ private final BookingRepository bookingRepository;
 
  @Autowired
- public RoomService(RoomRepository roomRepository, RoomMapper roomMapper) {
+ public RoomService(RoomRepository roomRepository, RoomMapper roomMapper,BookingRepository bookingRepository) {
   this.roomRepository = roomRepository;
   this.roomMapper = roomMapper;
+  this.bookingRepository = bookingRepository;
  }
 
  //Метод для добавления комнаты в БД
@@ -78,6 +81,8 @@ public class RoomService {
 
  //Метод для удаления комнаты из БД
  public void deleteRoom(int id){
+
+        bookingRepository.deleteAllByRoomId(id);
         roomRepository.deleteById(id);
  }
 

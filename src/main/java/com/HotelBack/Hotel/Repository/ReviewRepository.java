@@ -10,5 +10,6 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     public Review findById(int id);
-    List<Review> getReviewByUserId(int userId);
+    List<Review> getAllReviewByUserId(int userId);
+    void deleteAllByUserId(int userId);
 }

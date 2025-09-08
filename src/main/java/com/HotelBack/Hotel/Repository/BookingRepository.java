@@ -10,7 +10,9 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 
     public Booking findById(int id);
-    List<Booking> findByUserId(int userId);
-    List<Booking> findByRoomId(int roomId);
+    List<Booking> findAllBookingByUserId(int userId);
+    List<Booking> findAllBookingByRoomId(int roomId);
+    void deleteAllByUserId(int userId);
+    void deleteAllByRoomId(int roomId);
 
 }

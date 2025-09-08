@@ -1,8 +1,8 @@
 package com.HotelBack.Hotel.Service;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
-import com.HotelBack.Hotel.Entity.Booking;
-import com.HotelBack.Hotel.Entity.Review;
+//import com.HotelBack.Hotel.Entity.Booking;
+//import com.HotelBack.Hotel.Entity.Review;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Entity.UserRole;
 import com.HotelBack.Hotel.Mapping.UserMapper;
@@ -107,22 +107,19 @@ public class UserService {
     }
 
     //Метод удаляющий пользователя по его id
+    @Transactional
     public void deleteUser(int userId) {
 
+        try {
 
-        List<Review> deletedReviews = reviewRepository.getReviewByUserId(userId);
+            userRepository.deleteById(userId);
 
-        for(Review review : deletedReviews) {
-            reviewRepository.delete(review);
+
+        }
+        catch(Exception e) {
+            throw new RuntimeException("Failed to delete user");
         }
 
-        List<Booking> bookings = bookingRepository.findByUserId(userId);
-
-        for(Booking booking : bookings) {
-            bookingRepository.delete(booking);
-        }
-
-        userRepository.deleteById(userId);
     }
 
     public UserDTO updateUser(int id,UserDTO userDTO) {
