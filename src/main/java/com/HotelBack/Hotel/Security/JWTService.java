@@ -5,7 +5,9 @@ package com.HotelBack.Hotel.Security;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Repository.UserRepository;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
+import com.HotelBack.Hotel.Security.SDTO.EmailFromTokenDTO;
 import com.HotelBack.Hotel.Security.SDTO.JwtAuthenticationDTO;
+import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -123,6 +125,15 @@ public class JWTService {
     public String getEmailFromToken(String token){
         Claims email = Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token).getPayload();
         return email.getSubject();
+    }
+
+    public EmailFromTokenDTO parseTokenForEmail(JwtTokenDTO token){
+
+        Claims email = Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token.getToken()).getPayload();
+
+        EmailFromTokenDTO emailDTO = new EmailFromTokenDTO();
+        emailDTO.setEmail(email.getSubject());
+        return emailDTO;
     }
 
 }

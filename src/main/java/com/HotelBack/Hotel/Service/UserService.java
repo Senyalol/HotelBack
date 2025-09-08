@@ -1,9 +1,13 @@
 package com.HotelBack.Hotel.Service;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
+import com.HotelBack.Hotel.Entity.Booking;
+import com.HotelBack.Hotel.Entity.Review;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Entity.UserRole;
 import com.HotelBack.Hotel.Mapping.UserMapper;
+import com.HotelBack.Hotel.Repository.BookingRepository;
+import com.HotelBack.Hotel.Repository.ReviewRepository;
 import com.HotelBack.Hotel.Repository.UserRepository;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import com.HotelBack.Hotel.Security.JWTService;
@@ -35,14 +39,18 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final UserRoleRepository userRoleRepository;
+    private final BookingRepository bookingRepository;
+    private final ReviewRepository reviewRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService,UserRoleRepository userRoleRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService,UserRoleRepository userRoleRepository,BookingRepository bookingRepository, ReviewRepository reviewRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.userRoleRepository = userRoleRepository;
+        this.bookingRepository = bookingRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     //Метод регистрирующий пользователя в БД
@@ -100,6 +108,20 @@ public class UserService {
 
     //Метод удаляющий пользователя по его id
     public void deleteUser(int userId) {
+
+
+        List<Review> deletedReviews = reviewRepository.getReviewByUserId(userId);
+
+        for(Review review : deletedReviews) {
+            reviewRepository.delete(review);
+        }
+
+        List<Booking> bookings = bookingRepository.findByUserId(userId);
+
+        for(Booking booking : bookings) {
+            bookingRepository.delete(booking);
+        }
+
         userRepository.deleteById(userId);
     }
 

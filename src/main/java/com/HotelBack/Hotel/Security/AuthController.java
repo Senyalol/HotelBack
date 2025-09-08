@@ -1,8 +1,6 @@
 package com.HotelBack.Hotel.Security;
 
-import com.HotelBack.Hotel.Security.SDTO.JwtAuthenticationDTO;
-import com.HotelBack.Hotel.Security.SDTO.RefreshTokenDTO;
-import com.HotelBack.Hotel.Security.SDTO.UserCredentialDTO;
+import com.HotelBack.Hotel.Security.SDTO.*;
 import com.HotelBack.Hotel.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserService userService;
+    private final JWTService jwtService;
 
     @Autowired
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, JWTService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
 
     //Метод отвечающий за аутентификацию
@@ -47,6 +47,18 @@ public class AuthController {
             throw new RuntimeException("Refresh token - failed" + e.getCause());
         }
 
+    }
+
+    //Метод отвечающий за получение Email по токену
+    //Адрес http://localhost:8080/auth/getEmail
+    @PostMapping("/getEmail")
+    public ResponseEntity<EmailFromTokenDTO> GetEmailFromToke(@RequestBody JwtTokenDTO jwtTokenDTO) {
+        try{
+            return ResponseEntity.ok(jwtService.parseTokenForEmail(jwtTokenDTO));
+        }
+        catch(Exception e){
+            throw new RuntimeException("Get email from token - failed" + e.getCause());
+        }
     }
 
 }
