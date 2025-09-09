@@ -59,10 +59,10 @@ public class UserController {
 
     //Получить данные своего аккаунта
     //Адрес - http://localhost:8080/api/users/yours
-    @PostMapping("/yours")
-    public UserDTO getYourself(@RequestBody JwtTokenDTO jwtTokenDTO) {
-        return jwtService.getYourself(jwtTokenDTO);
-    }
+//    @PostMapping("/yours")
+//    public UserDTO getYourself(@RequestBody JwtTokenDTO jwtTokenDTO) {
+//        return jwtService.getYourself(jwtTokenDTO);
+//    }
 
 
 }

@@ -28,15 +28,15 @@ public class JWTService {
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
-    private final UserMapper userMapper;
+//    private final UserMapper userMapper;
 
     private final String signatureKey = "yQPE6xublU1wnS8demYaZVEqqaV3IHky4w3G3jdxQ3dR61EWLuTgJHzRRrG2TZUOpnXjFPMypB279oSHbFNEqw";
 
     @Autowired
-    public JWTService(UserRepository userRepository, UserRoleRepository userRoleRepository, UserMapper userMapper) {
+    public JWTService(UserRepository userRepository, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
-        this.userMapper = userMapper;
+//        this.userMapper = userMapper;
     }
 
     //Получить подпись ключа
@@ -137,9 +137,9 @@ public class JWTService {
     }
 
     //Посмотреть свои данные
-    public UserDTO getYourself(JwtTokenDTO jwtDTO){
-       return userMapper.EntityToDTO(userRepository.findByEmail(parseTokenForEmail(jwtDTO).getEmail()));
-    }
+//    public UserDTO getYourself(JwtTokenDTO jwtDTO){
+//       return userMapper.EntityToDTO(userRepository.findByEmail(parseTokenForEmail(jwtDTO).getEmail()));
+//    }
 
     public EmailFromTokenDTO parseTokenForEmail(JwtTokenDTO token){
 

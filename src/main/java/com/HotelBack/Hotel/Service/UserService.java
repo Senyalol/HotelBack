@@ -39,18 +39,14 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final UserRoleRepository userRoleRepository;
-    private final BookingRepository bookingRepository;
-    private final ReviewRepository reviewRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService,UserRoleRepository userRoleRepository,BookingRepository bookingRepository, ReviewRepository reviewRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService,UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.userRoleRepository = userRoleRepository;
-        this.bookingRepository = bookingRepository;
-        this.reviewRepository = reviewRepository;
     }
 
     //Метод регистрирующий пользователя в БД
@@ -68,7 +64,9 @@ public class UserService {
         if(userDTO != null && userChecker.check(userDTO)) {
 
             try {
-                userRepository.save(userMapper.DTOToEntity(userDTO));
+                User savedUser = userMapper.DTOToEntity(userDTO);
+                savedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+                userRepository.save(savedUser);
 
                 UserRole newUserRole = new UserRole();
                 newUserRole.setUser(userRepository.findByEmail(userDTO.getEmail()));
