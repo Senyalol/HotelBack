@@ -2,9 +2,7 @@ package com.HotelBack.Hotel.Security;
 
 //import org.springframework.context.annotation.Configuration;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
-import com.HotelBack.Hotel.Mapping.UserMapper;
 import com.HotelBack.Hotel.Repository.UserRepository;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import com.HotelBack.Hotel.Security.SDTO.EmailFromTokenDTO;
@@ -130,16 +128,6 @@ public class JWTService {
         Claims email = Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token).getPayload();
         return email.getSubject();
     }
-
-    //Удалить свой аккаунт
-    public void deleteYourUser(JwtTokenDTO jwtDTO){
-        userRepository.deleteUserByEmail(parseTokenForEmail(jwtDTO).getEmail());
-    }
-
-    //Посмотреть свои данные
-//    public UserDTO getYourself(JwtTokenDTO jwtDTO){
-//       return userMapper.EntityToDTO(userRepository.findByEmail(parseTokenForEmail(jwtDTO).getEmail()));
-//    }
 
     public EmailFromTokenDTO parseTokenForEmail(JwtTokenDTO token){
 

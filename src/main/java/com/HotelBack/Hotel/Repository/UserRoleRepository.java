@@ -1,6 +1,5 @@
 package com.HotelBack.Hotel.Repository;
 
-import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Entity.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 

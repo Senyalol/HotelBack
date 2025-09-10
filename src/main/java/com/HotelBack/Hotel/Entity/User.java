@@ -3,16 +3,14 @@ package com.HotelBack.Hotel.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-//import lombok.Getter;
-//import lombok.Setter;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-//@Getter
-//@Setter
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -42,6 +40,10 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Size(max = 500)
+    @Column(name = "avatar_user", length = 500)
+    private String avatarUser;
+
     @OneToMany(mappedBy = "user")
     private Set<Booking> bookings = new LinkedHashSet<>();
 
@@ -49,6 +51,6 @@ public class User {
     private Set<Review> reviews = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<UserRole> roles = new LinkedHashSet<>();
+    private Set<UserRole> userRoles = new LinkedHashSet<>();
 
 }

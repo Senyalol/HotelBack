@@ -1,7 +1,6 @@
 package com.HotelBack.Hotel.Controller;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
-import com.HotelBack.Hotel.Security.JWTService;
 import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
 import com.HotelBack.Hotel.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,10 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final JWTService jwtService;
 
     @Autowired
-    public UserController(UserService userService, JWTService jwtService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.jwtService = jwtService;
     }
 
     //Создать пользователя
@@ -54,15 +51,15 @@ public class UserController {
     //Адрес - http://localhost:8080/api/users/delete
     @PostMapping("/delete")
     public void deleteYourself(@RequestBody JwtTokenDTO jwtTokenDTO) {
-        jwtService.deleteYourUser(jwtTokenDTO);
+        userService.deleteYourUser(jwtTokenDTO);
     }
 
     //Получить данные своего аккаунта
     //Адрес - http://localhost:8080/api/users/yours
-//    @PostMapping("/yours")
-//    public UserDTO getYourself(@RequestBody JwtTokenDTO jwtTokenDTO) {
-//        return jwtService.getYourself(jwtTokenDTO);
-//    }
+    @PostMapping("/yours")
+    public UserDTO getYourself(@RequestBody JwtTokenDTO jwtTokenDTO) {
+        return userService.getYourself(jwtTokenDTO);
+    }
 
 
 }

@@ -1,10 +1,8 @@
 package com.HotelBack.Hotel.Mapping;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
-import com.HotelBack.Hotel.Entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import com.HotelBack.Hotel.Entity.User;
 
 @Component
 public class UserMapper {
@@ -21,7 +19,7 @@ public class UserMapper {
         userDTO.setLastname(user.getLastName());
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
-
+        userDTO.setAvatarUser(user.getAvatarUser());
 
         return userDTO;
     }
@@ -35,6 +33,7 @@ public class UserMapper {
         user.setFirstName(userDTO.getFirstname());
         user.setLastName(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
+        user.setAvatarUser(userDTO.getAvatarUser());
 //        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         return user;

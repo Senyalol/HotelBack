@@ -21,6 +21,9 @@ public class UserDTO {
     @JsonProperty("password")
     private String password;
 
+    @JsonProperty("avatar_user")
+    private String avatarUser;
+
     //Ключ для того чтобы стать админом
     @JsonProperty("secretKey")
     private String secretKey;

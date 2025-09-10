@@ -4,7 +4,6 @@ import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Repository.UserRepository;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

@@ -6,12 +6,11 @@ import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Entity.UserRole;
 import com.HotelBack.Hotel.Mapping.UserMapper;
-import com.HotelBack.Hotel.Repository.BookingRepository;
-import com.HotelBack.Hotel.Repository.ReviewRepository;
 import com.HotelBack.Hotel.Repository.UserRepository;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import com.HotelBack.Hotel.Security.JWTService;
 import com.HotelBack.Hotel.Security.SDTO.JwtAuthenticationDTO;
+import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
 import com.HotelBack.Hotel.Security.SDTO.RefreshTokenDTO;
 import com.HotelBack.Hotel.Security.SDTO.UserCredentialDTO;
 import com.HotelBack.Hotel.Service.CreateCheckStrategy.User.*;
@@ -49,6 +48,16 @@ public class UserService {
         this.userRoleRepository = userRoleRepository;
     }
 
+    //Удалить свой аккаунт
+    public void deleteYourUser(JwtTokenDTO jwtDTO){
+        userRepository.deleteUserByEmail(jwtService.parseTokenForEmail(jwtDTO).getEmail());
+    }
+
+    //Посмотреть свои данные
+    public UserDTO getYourself(JwtTokenDTO jwtDTO){
+       return userMapper.EntityToDTO(userRepository.findByEmail(jwtService.parseTokenForEmail(jwtDTO).getEmail()));
+    }
+
     //Метод регистрирующий пользователя в БД
     public UserDTO createUser(UserDTO userDTO) {
 
@@ -56,7 +65,8 @@ public class UserService {
                 new firstNameCreateChecker(),
                 new lastNameCreateChecker(),
                 new emailCreateChecker(userRepository),
-                new passwordCreateChecker()
+                new passwordCreateChecker(),
+                new avatarUserCreateChecker()
         );
 
         UserCreateChecker userChecker = new UserCreateChecker(checks);
@@ -125,7 +135,8 @@ public class UserService {
         User editableUser = userRepository.findById(id);
 
         List<EditUserCheck> checks = Arrays.asList(new firstNameChecker()
-        ,new lastNameChecker(), new emailChecker(), new passwordChecker(passwordEncoder));
+        ,new lastNameChecker(), new emailChecker(), new passwordChecker(passwordEncoder)
+        ,new avatarUserChecker());
 
         UserChecker userChecker = new UserChecker(checks);
 
