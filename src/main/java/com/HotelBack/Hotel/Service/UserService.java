@@ -58,6 +58,32 @@ public class UserService {
        return userMapper.EntityToDTO(userRepository.findByEmail(jwtService.parseTokenForEmail(jwtDTO).getEmail()));
     }
 
+    public UserDTO updateYourSelf(String authHeader,UserDTO userDTO){
+
+        String jwtToken = authHeader.substring(7);
+        String email = jwtService.getEmailFromToken(jwtToken);
+        User editableUser = userRepository.findByEmail(email);
+
+        List<EditUserCheck> checks = Arrays.asList(
+                new firstNameChecker(),
+                new lastNameChecker(),
+                new emailChecker(),
+                new passwordChecker(passwordEncoder),
+                new avatarUserChecker()
+        );
+
+        UserChecker userChecker = new UserChecker(checks);
+
+        if(userDTO !=null){
+
+            userChecker.check(userDTO,editableUser);
+            userRepository.save(editableUser);
+        }
+
+        return userMapper.EntityToDTO(userRepository.findByEmail(email));
+
+    }
+
     //Метод регистрирующий пользователя в БД
     public UserDTO createUser(UserDTO userDTO) {
 

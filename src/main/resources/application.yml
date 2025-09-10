@@ -32,21 +32,20 @@ spring:
 #
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5432/ZlataDB
+#    url: jdbc:postgresql://localhost:5432/Test
 #    username: postgres
 #    password: 1111
 #
-#  spring:
-#    jpa:
-#      properties:
-#        hibernate:
-#          default_schema: public
+#  jpa:
+#    properties:
 #      hibernate:
-#        ddl-auto: validate
+#        default_schema: basic
+#    hibernate:
+#      ddl-auto: validate
 #
-#    flyway:
-#      enabled: true
-#      schemas: public
-#      default-schema: public
+#  flyway:
+#    enabled: true
+#    schemas: basic
+#    default-schema: basic
 
 #  spring.application.name=Hotel

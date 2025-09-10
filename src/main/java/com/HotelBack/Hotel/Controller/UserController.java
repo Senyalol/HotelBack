@@ -61,5 +61,11 @@ public class UserController {
         return userService.getYourself(jwtTokenDTO);
     }
 
+    //Обновить собственного пользователя
+    //Адрес - http//localhost:8080/api/users/update
+    @PatchMapping("/update")
+    public UserDTO updateYourself(@RequestHeader("Authorization") String authHeader, @RequestBody UserDTO userDTO) {
+        return userService.updateYourSelf(authHeader,userDTO);
+    }
 
 }
