@@ -3,6 +3,7 @@ package com.HotelBack.Hotel.Controller;
 import com.HotelBack.Hotel.DTO.BookingDTO;
 import com.HotelBack.Hotel.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class BookingController {
 
     //Получить список всех броней
     //Адрес http://localhost:8080/api/bookings
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @GetMapping
     public List<BookingDTO> getAllBookings() {
         return bookingService.getAllBookings();
@@ -28,6 +30,7 @@ public class BookingController {
 
     //Сделать бронь
     //Адрес http://localhost:8080/api/bookings
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @PostMapping
     public BookingDTO addBooking(@RequestBody BookingDTO bookingDTO) {
         return bookingService.createBooking(bookingDTO);
@@ -35,6 +38,7 @@ public class BookingController {
 
     //Удалить бронь
     //Адрес http://localhost:8080/api/bookings/delete/{id}
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @DeleteMapping("/delete/{id}")
     public void deleteBooking(@PathVariable int id) {
         bookingService.deleteBooking(id);
@@ -42,6 +46,7 @@ public class BookingController {
 
     //Редактировать бронь
     //Адрес http://localhost:8080/api/bookings/update/{id}
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/update/{id}")
     public BookingDTO updateBooking(@PathVariable int id, @RequestBody BookingDTO bookingDTO) {
         return bookingService.updateBooking(id, bookingDTO);

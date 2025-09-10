@@ -3,6 +3,7 @@ package com.HotelBack.Hotel.Controller;
 import com.HotelBack.Hotel.DTO.ReviewDTO;
 import com.HotelBack.Hotel.Service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ReviewController {
 
     //Получить список всех отзывов
     //Адрес http://localhost:8080/api/reviews
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @GetMapping
     public List<ReviewDTO> getAllReviews() {
         return reviewService.getAllReviews();
@@ -28,6 +30,7 @@ public class ReviewController {
 
     //Оставить отзыв
     //Адрес http://localhost:8080/api/reviews
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @PostMapping
     public ReviewDTO addReview(@RequestBody ReviewDTO reviewDTO) {
         return reviewService.createReview(reviewDTO);
@@ -35,6 +38,7 @@ public class ReviewController {
 
     //Удалить отзыв по id
     //Адрес http://localhost:8080/api/reviews/delete/{id}
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @DeleteMapping("/delete/{id}")
     public void deleteReview(@PathVariable int id) {
         reviewService.deleteReview(id);
@@ -42,6 +46,7 @@ public class ReviewController {
 
     //Редактировать отзыв по id
     //Адрес http://localhost:8080/api/reviews/update/{id}
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @PatchMapping("/update/{id}")
     public ReviewDTO getReviewById(@PathVariable int id,@RequestBody ReviewDTO reviewDTO) {
         return reviewService.updateReview(id, reviewDTO);

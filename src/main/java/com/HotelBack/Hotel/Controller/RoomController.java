@@ -3,6 +3,7 @@ package com.HotelBack.Hotel.Controller;
 import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class RoomController {
 
     //Получить все номера
     //Адрес http://localhost:8080/api/rooms
+    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @GetMapping
     public List<RoomDTO> getAllRooms() {
 
@@ -30,6 +32,7 @@ public class RoomController {
 
     //Создать новый номер
     //Адрес http://localhost:8080/api/rooms
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public RoomDTO createRoom(@RequestBody RoomDTO roomDTO) {
 
@@ -39,6 +42,7 @@ public class RoomController {
 
     //Обновить данные о номере по id
     //Адрес http://localhost:8080/api/rooms/update/id
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/update/{id}")
     public RoomDTO updateRoom(@PathVariable int id, @RequestBody RoomDTO roomDTO) {
         return roomService.editRoom(id, roomDTO);
@@ -46,6 +50,7 @@ public class RoomController {
 
     //Удалить номер по id
     //Адрес http://localhost:8080/api/rooms/delete/id
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void deleteRoom(@PathVariable int id) {
         roomService.deleteRoom(id);
