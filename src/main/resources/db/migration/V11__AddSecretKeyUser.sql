@@ -1,0 +1,2 @@
+ALTER TABLE users
+ADD COLUMN secretKey VARCHAR(100);
