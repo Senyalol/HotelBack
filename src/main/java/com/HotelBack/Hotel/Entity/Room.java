@@ -55,7 +55,14 @@ public class Room {
     @Column(name = "status", length = 20)
     private String status;
 
+    @Size(max = 1000)
+    @Column(name = "amenities", length = 1000)
+    private String amenities;
+
     @OneToMany(mappedBy = "room")
     private Set<Booking> bookings = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "room")
+    private Set<RoomImage> roomImages = new LinkedHashSet<>();
 
 }

@@ -43,7 +43,7 @@ public class RoomService {
              new roomNameCreateChecker(), new priceCreateChecker(),
              new bedTypeCreateChecker(), new areaCreateChecker(),
              new capacityCreateChecker(), new viewCreateChecker(),
-             new descriptionCreateChecker()
+             new descriptionCreateChecker(), new amenitiesCreateChecker()
      );
 
      RoomCreateChecker checker = new RoomCreateChecker(checks);
@@ -98,7 +98,9 @@ public class RoomService {
                                            ,new CapacityChecker()
                                            , new ViewChecker()
                                            ,new DescriptionChecker()
-                                           , new StatusChecker());
+                                           , new StatusChecker()
+                                           , new AmenitiesChecker()
+    );
 
     RoomChecker checker = new RoomChecker(checks);
 

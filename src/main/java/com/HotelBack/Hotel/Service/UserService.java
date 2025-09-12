@@ -48,6 +48,15 @@ public class UserService {
         this.userRoleRepository = userRoleRepository;
     }
 
+    //Найти по id пользователя
+    public UserDTO findUser(int id){
+
+        User user = userRepository.findById(id);
+
+        return userMapper.EntityToDTO(user);
+
+    }
+
     //Удалить свой аккаунт
     public void deleteYourUser(JwtTokenDTO jwtDTO){
         userRepository.deleteUserByEmail(jwtService.parseTokenForEmail(jwtDTO).getEmail());

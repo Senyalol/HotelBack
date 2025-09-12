@@ -21,6 +21,7 @@ public class RoomMapper {
         dto.setView(entity.getView());
         dto.setDescription(entity.getDescription());
         dto.setStatus(entity.getStatus());
+        dto.setAmenities(entity.getAmenities());
 
         return dto;
 
@@ -40,6 +41,7 @@ public class RoomMapper {
         entity.setView(dto.getView());
         entity.setDescription(dto.getDescription());
         entity.setStatus(dto.getStatus());
+        entity.setAmenities(dto.getAmenities());
 
         return entity;
     }

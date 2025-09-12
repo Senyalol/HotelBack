@@ -36,6 +36,13 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    //Найти пользователя по id
+    //Адрес - http://localhost:8080/api/users/{id}
+    @GetMapping("/{id}")
+    public UserDTO getUser(@PathVariable int id) {
+        return userService.findUser(id);
+    }
+
     //Редактировать пользователя
     //Адрес - http://localhost:8080/api/users/update/id
     @PreAuthorize("hasAuthority('ADMIN')")

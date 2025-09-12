@@ -32,7 +32,11 @@ public class RoomDTO {
     @JsonProperty("description")
     private String description;
 
+    @JsonProperty("amenities")
+    private String amenities;
+
     @JsonProperty("status")
     private String status;
+
 
 }
