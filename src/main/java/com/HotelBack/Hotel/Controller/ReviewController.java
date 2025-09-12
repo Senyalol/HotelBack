@@ -22,7 +22,7 @@ public class ReviewController {
 
     //Получить список всех отзывов
     //Адрес http://localhost:8080/api/reviews
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
+    //@PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @GetMapping
     public List<ReviewDTO> getAllReviews() {
         return reviewService.getAllReviews();
