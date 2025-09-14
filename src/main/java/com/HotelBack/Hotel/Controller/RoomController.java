@@ -22,7 +22,7 @@ public class RoomController {
 
     //Получить все номера
     //Адрес http://localhost:8080/api/rooms
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
+    //@PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @GetMapping
     public List<RoomDTO> getAllRooms() {
 
