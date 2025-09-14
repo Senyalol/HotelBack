@@ -30,7 +30,7 @@ public class ImageController {
 
     //Получить все фотографии конкретной комнаты
     //Адрес - http://localhost:8080/api/images/{id}
-    @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
+    //@PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @GetMapping("/{id}")
     public List<RoomImageDTO> getRoomImages(@PathVariable int id) {
         return roomImageService.getAllImagesFromRoom(id);
