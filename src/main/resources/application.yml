@@ -23,6 +23,9 @@ spring:
         hibernate:
           default_schema: public
 
+app:
+  admin_key: ${ADMIN_KEY}
+
 #  spring.application.name=Hotel
 
 

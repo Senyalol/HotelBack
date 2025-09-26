@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.transaction.Transactional;
 //import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,9 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final UserRoleRepository userRoleRepository;
+
+    @Value("${app.admin_key}")
+    private String adminKey;
 
     @Autowired
     public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService,UserRoleRepository userRoleRepository) {
@@ -78,7 +82,8 @@ public class UserService {
                 new lastNameChecker(),
                 new emailChecker(),
                 new passwordChecker(passwordEncoder),
-                new avatarUserChecker()
+                new avatarUserChecker(),
+                new secretKeyChecker(userRoleRepository,adminKey)
         );
 
         UserChecker userChecker = new UserChecker(checks);
@@ -101,7 +106,8 @@ public class UserService {
                 new lastNameCreateChecker(),
                 new emailCreateChecker(userRepository),
                 new passwordCreateChecker(),
-                new avatarUserCreateChecker()
+                new avatarUserCreateChecker(),
+                new secretKeyCreateChecker()
         );
 
         UserCreateChecker userChecker = new UserCreateChecker(checks);
@@ -116,13 +122,13 @@ public class UserService {
                 UserRole newUserRole = new UserRole();
                 newUserRole.setUser(userRepository.findByEmail(userDTO.getEmail()));
 
-                if(userDTO.getSecretKey().equals("jxCa3WucA4sBzw==")){
+                if(userDTO.getSecretKey().equals(adminKey)){
 
                          newUserRole.setRole("ADMIN");
 
                 }
 
-                else if(!userDTO.getSecretKey().equals("jxCa3WucA4sBzw==")){
+                else if(!userDTO.getSecretKey().equals(adminKey)){
                     newUserRole.setRole("USER");
                 }
 
@@ -171,7 +177,7 @@ public class UserService {
 
         List<EditUserCheck> checks = Arrays.asList(new firstNameChecker()
         ,new lastNameChecker(), new emailChecker(), new passwordChecker(passwordEncoder)
-        ,new avatarUserChecker());
+        ,new avatarUserChecker(), new secretKeyChecker(userRoleRepository,adminKey));
 
         UserChecker userChecker = new UserChecker(checks);
 
