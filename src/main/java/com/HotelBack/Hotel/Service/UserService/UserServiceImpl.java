@@ -6,7 +6,6 @@ import com.HotelBack.Hotel.Entity.SecurityEntity.RefreshToken;
 import com.HotelBack.Hotel.Entity.SecurityEntity.UserCredential;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Entity.UserRole;
-import com.HotelBack.Hotel.Mapping.UserMapper;
 import com.HotelBack.Hotel.Repository.UserRepository;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import com.HotelBack.Hotel.Security.JWTService;
@@ -29,7 +28,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
     private final UserRoleRepository userRoleRepository;
@@ -38,9 +36,8 @@ public class UserServiceImpl implements UserService {
     private String adminKey;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, JWTService jwtService, UserRoleRepository userRoleRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JWTService jwtService, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.userRoleRepository = userRoleRepository;
