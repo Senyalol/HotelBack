@@ -25,6 +25,7 @@ spring:
 
 app:
   admin_key: ${ADMIN_KEY}
+  signature_key: ${SIGNATURE_KEY}
 
 #  spring.application.name=Hotel
 

@@ -1,13 +1,7 @@
 package com.HotelBack.Hotel.Mapping;
 
-import com.HotelBack.Hotel.Entity.SecurityEntity.JwtAuthentication;
-import com.HotelBack.Hotel.Entity.SecurityEntity.JwtToken;
-import com.HotelBack.Hotel.Entity.SecurityEntity.RefreshToken;
-import com.HotelBack.Hotel.Entity.SecurityEntity.UserCredential;
-import com.HotelBack.Hotel.Security.SDTO.JwtAuthenticationDTO;
-import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
-import com.HotelBack.Hotel.Security.SDTO.RefreshTokenDTO;
-import com.HotelBack.Hotel.Security.SDTO.UserCredentialDTO;
+import com.HotelBack.Hotel.Entity.SecurityEntity.*;
+import com.HotelBack.Hotel.Security.SDTO.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -103,6 +97,28 @@ public class SecurityMapper {
         userCredentialDTO.setPassword(userCredential.getPassword());
 
         return userCredentialDTO;
+    }
+
+    //EmailFromToken
+    //Из DTO в сущность
+
+    public EmailFromToken toEmailFromToken(EmailFromTokenDTO emailFromTokenDTO){
+
+        EmailFromToken emailFromToken = new EmailFromToken();
+
+        emailFromToken.setEmail(emailFromTokenDTO.getEmail());
+
+        return emailFromToken;
+    }
+
+    //Из сущности в DTO
+    public EmailFromTokenDTO toEmailFromTokenDTO(EmailFromToken emailFromToken){
+
+        EmailFromTokenDTO emailFromTokenDTO = new EmailFromTokenDTO();
+
+        emailFromTokenDTO.setEmail(emailFromToken.getEmail());
+
+        return emailFromTokenDTO;
     }
 
 }

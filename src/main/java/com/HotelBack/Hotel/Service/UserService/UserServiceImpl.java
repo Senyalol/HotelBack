@@ -1,18 +1,15 @@
 package com.HotelBack.Hotel.Service.UserService;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
-//import com.HotelBack.Hotel.Entity.Booking;
-//import com.HotelBack.Hotel.Entity.Review;
+import com.HotelBack.Hotel.Entity.SecurityEntity.JwtAuthentication;
+import com.HotelBack.Hotel.Entity.SecurityEntity.JwtToken;
+import com.HotelBack.Hotel.Entity.SecurityEntity.RefreshToken;
+import com.HotelBack.Hotel.Entity.SecurityEntity.UserCredential;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Entity.UserRole;
 import com.HotelBack.Hotel.Mapping.UserMapper;
 import com.HotelBack.Hotel.Repository.UserRepository;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import com.HotelBack.Hotel.Security.JWTService;
-import com.HotelBack.Hotel.Security.SDTO.JwtAuthenticationDTO;
-import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
-import com.HotelBack.Hotel.Security.SDTO.RefreshTokenDTO;
-import com.HotelBack.Hotel.Security.SDTO.UserCredentialDTO;
 import com.HotelBack.Hotel.Service.UserService.CreateUserChecks.*;
 import com.HotelBack.Hotel.Service.UserService.EditUserChecks.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -25,7 +22,6 @@ import org.springframework.stereotype.Service;
 import javax.naming.AuthenticationException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -52,28 +48,24 @@ public class UserServiceImpl implements UserService {
 
     //Найти по id пользователя
     @Override
-    public UserDTO findUser(int id){
-
-        User user = userRepository.findById(id);
-
-        return userMapper.EntityToDTO(user);
-
+    public User findUser(int id){
+        return userRepository.findById(id);
     }
 
     //Удалить свой аккаунт
     @Override
-    public void deleteYourUser(JwtTokenDTO jwtDTO){
-        userRepository.deleteUserByEmail(jwtService.parseTokenForEmail(jwtDTO).getEmail());
+    public void deleteYourUser(JwtToken jwt){
+        userRepository.deleteUserByEmail(jwtService.parseTokenForEmail(jwt).getEmail());
     }
 
     //Посмотреть свои данные
     @Override
-    public UserDTO getYourself(JwtTokenDTO jwtDTO){
-       return userMapper.EntityToDTO(userRepository.findByEmail(jwtService.parseTokenForEmail(jwtDTO).getEmail()));
+    public User getYourself(JwtToken jwt){
+       return userRepository.findByEmail(jwtService.parseTokenForEmail(jwt).getEmail());
     }
 
     @Override
-    public UserDTO updateYourSelf(String authHeader,UserDTO userDTO){
+    public User updateYourSelf(String authHeader,User user){
 
         String jwtToken = authHeader.substring(7);
         String email = jwtService.getEmailFromToken(jwtToken);
@@ -90,19 +82,19 @@ public class UserServiceImpl implements UserService {
 
         UserChecker userChecker = new UserChecker(checks);
 
-        if(userDTO !=null){
+        if(user !=null){
 
-            userChecker.check(userDTO,editableUser);
+            userChecker.check(user,editableUser);
             userRepository.save(editableUser);
         }
 
-        return userMapper.EntityToDTO(userRepository.findByEmail(email));
+        return userRepository.findByEmail(email);
 
     }
 
     //Метод регистрирующий пользователя в БД
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public User createUser(User savedUser) {
 
         List<CreateUserCheck> checks = Arrays.asList(
                 new firstNameCreateChecker(),
@@ -115,29 +107,28 @@ public class UserServiceImpl implements UserService {
 
         UserCreateChecker userChecker = new UserCreateChecker(checks);
 
-        if(userDTO != null && userChecker.check(userDTO)) {
+        if(savedUser != null && userChecker.check(savedUser)) {
 
             try {
-                User savedUser = userMapper.DTOToEntity(userDTO);
-                savedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+                savedUser.setPassword(passwordEncoder.encode(savedUser.getPassword()));
                 userRepository.save(savedUser);
 
                 UserRole newUserRole = new UserRole();
-                newUserRole.setUser(userRepository.findByEmail(userDTO.getEmail()));
+                newUserRole.setUser(userRepository.findByEmail(savedUser.getEmail()));
 
-                if(userDTO.getSecretKey().equals(adminKey)){
+                if(savedUser.getSecretkey().equals(adminKey)){
 
-                         newUserRole.setRole("ADMIN");
+                    newUserRole.setRole("ADMIN");
 
                 }
 
-                else if(!userDTO.getSecretKey().equals(adminKey)){
+                else if(!savedUser.getSecretkey().equals(adminKey)){
                     newUserRole.setRole("USER");
                 }
 
                 userRoleRepository.save(newUserRole);
 
-                return userDTO;
+                return savedUser;
             }
             catch(Exception e) {
                 System.out.println(e.getMessage());
@@ -149,13 +140,11 @@ public class UserServiceImpl implements UserService {
 
     //Метод выводящий всех пользователей
     @Override
-    public List<UserDTO> getAllUsers() {
+    public List<User> getAllUsers() {
 
         List<User> users = userRepository.findAll();
 
-        return users.stream()
-                .map(user -> userMapper.EntityToDTO(user))
-                .collect(Collectors.toList());
+        return users;
 
     }
 
@@ -177,7 +166,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(int id,UserDTO userDTO) {
+    public User updateUser(int id,User user) {
 
         User editableUser = userRepository.findById(id);
 
@@ -187,20 +176,20 @@ public class UserServiceImpl implements UserService {
 
         UserChecker userChecker = new UserChecker(checks);
 
-        userChecker.check(userDTO, editableUser);
+        userChecker.check(user, editableUser);
 
-        return userMapper.EntityToDTO(userRepository.findById(id));
+        return userRepository.findById(id);
 
     }
 
     @Override
-    public JwtAuthenticationDTO signIn(UserCredentialDTO userCredentialDTO) {
+    public JwtAuthentication signIn(UserCredential userCredential) {
 
-        User user = userRepository.findByEmail(userCredentialDTO.getEmail());
+        User user = userRepository.findByEmail(userCredential.getEmail());
 
-        if(userCredentialDTO.getEmail() != null && userCredentialDTO.getPassword() != null) {
+        if(userCredential.getEmail() != null && userCredential.getPassword() != null) {
 
-            if(userCredentialDTO.getEmail().equals(user.getEmail()) && passwordEncoder.matches(userCredentialDTO.getPassword(), user.getPassword())) {
+            if(userCredential.getEmail().equals(user.getEmail()) && passwordEncoder.matches(userCredential.getPassword(), user.getPassword())) {
                 return jwtService.getTokenForUser(user.getEmail());
             }
 
@@ -217,9 +206,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JwtAuthenticationDTO refreshToken(RefreshTokenDTO refreshTokenDTO) throws AuthenticationException {
+    public JwtAuthentication refreshToken(RefreshToken refreshTokenEntity) throws AuthenticationException {
 
-        String refreshToken = refreshTokenDTO.getRefreshToken();
+        String refreshToken = refreshTokenEntity.getRefreshToken();
         if(refreshToken != null && jwtService.validateJwtToken(refreshToken)) {
 
             try{

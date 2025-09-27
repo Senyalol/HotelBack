@@ -1,17 +1,17 @@
 package com.HotelBack.Hotel.Service.UserService.EditUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
 
 public class lastNameChecker implements EditUserCheck{
+
     @Override
-    public void check(UserDTO userDTO, User user) {
+    public void check(User updateUser, User user) {
 
-        if(userDTO != null){
+        if(updateUser != null){
 
-            if(userDTO.getLastname() != null){
+            if(updateUser.getLastName() != null){
 
-                user.setLastName(userDTO.getLastname());
+                user.setLastName(updateUser.getLastName());
 
             }
 

@@ -1,13 +1,14 @@
 package com.HotelBack.Hotel.Service.UserService.CreateUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
+import com.HotelBack.Hotel.Entity.User;
 
 public class lastNameCreateChecker implements CreateUserCheck{
+
     @Override
-    public boolean check(UserDTO userDTO) {
+    public boolean check(User user) {
 
         boolean result = true;
-        if(userDTO == null || userDTO.getLastname() == null){
+        if(user == null || user.getLastName() == null){
             result = false;
         }
 

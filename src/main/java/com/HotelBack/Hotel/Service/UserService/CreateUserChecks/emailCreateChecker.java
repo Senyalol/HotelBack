@@ -1,9 +1,7 @@
 package com.HotelBack.Hotel.Service.UserService.CreateUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
+import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Repository.UserRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//mport org.springframework.beans.factory.annotation.Autowired;
 
 public class emailCreateChecker implements CreateUserCheck{
 
@@ -15,17 +13,17 @@ public class emailCreateChecker implements CreateUserCheck{
     }
 
     @Override
-    public boolean check(UserDTO userDTO) {
+    public boolean check(User user) {
 
         boolean result = true;
 
-        if(userDTO == null || userDTO.getEmail() == null){
+        if(user == null || user.getEmail() == null){
 
             result = false;
 
         }
         //Проверка на уникальность Email
-        else if(userRepository.findByEmail(userDTO.getEmail()) != null){
+        else if(userRepository.findByEmail(user.getEmail()) != null){
 
             result = false;
 

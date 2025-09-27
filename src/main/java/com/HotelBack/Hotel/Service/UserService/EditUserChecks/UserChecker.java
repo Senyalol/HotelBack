@@ -1,6 +1,5 @@
 package com.HotelBack.Hotel.Service.UserService.EditUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
 import lombok.Data;
 
@@ -15,11 +14,11 @@ public class UserChecker {
         this.userChecks = userChecks;
     }
 
-    public void check(UserDTO userDTO, User user){
+    public void check(User updateUser, User user){
 
         for(EditUserCheck check : userChecks){
 
-            check.check(userDTO, user);
+            check.check(updateUser, user);
 
         }
 

@@ -1,6 +1,6 @@
 package com.HotelBack.Hotel.Service.UserService.CreateUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
+import com.HotelBack.Hotel.Entity.User;
 import lombok.Data;
 
 import java.util.List;
@@ -14,12 +14,12 @@ public class UserCreateChecker {
         this.checks = checks;
     }
 
-    public boolean check(UserDTO userDTO){
+    public boolean check(User user){
 
         boolean result = true;
         for(CreateUserCheck check : checks){
 
-            if(!check.check(userDTO)){
+            if(!check.check(user)){
                 result = false;
             }
 

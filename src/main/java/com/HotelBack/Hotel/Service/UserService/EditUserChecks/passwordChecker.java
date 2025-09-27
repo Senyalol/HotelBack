@@ -1,6 +1,5 @@
 package com.HotelBack.Hotel.Service.UserService.EditUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -13,13 +12,13 @@ public class passwordChecker implements EditUserCheck{
     }
 
     @Override
-    public void check(UserDTO userDTO, User user) {
+    public void check(User updateUser, User user) {
 
-        if(userDTO != null){
+        if(updateUser != null){
 
-            if(userDTO.getPassword() != null){
+            if(updateUser.getPassword() != null){
 
-                user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+                user.setPassword(passwordEncoder.encode(updateUser.getPassword()));
 
             }
 

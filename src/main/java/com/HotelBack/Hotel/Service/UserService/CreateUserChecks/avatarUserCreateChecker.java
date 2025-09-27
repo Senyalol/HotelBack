@@ -1,13 +1,13 @@
 package com.HotelBack.Hotel.Service.UserService.CreateUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
+import com.HotelBack.Hotel.Entity.User;
 
 public class avatarUserCreateChecker implements CreateUserCheck{
     @Override
-    public boolean check(UserDTO userDTO) {
+    public boolean check(User user) {
         boolean result = true;
 
-        if(userDTO == null || userDTO.getAvatarUser() == null){
+        if(user == null || user.getAvatarUser() == null){
             result = false;
         }
 

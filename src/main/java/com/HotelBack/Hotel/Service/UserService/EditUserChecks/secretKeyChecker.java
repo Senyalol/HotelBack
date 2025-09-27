@@ -1,6 +1,5 @@
 package com.HotelBack.Hotel.Service.UserService.EditUserChecks;
 
-import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Entity.UserRole;
 import com.HotelBack.Hotel.Repository.UserRoleRepository;
@@ -16,16 +15,16 @@ public class secretKeyChecker implements EditUserCheck{
     }
 
     @Override
-    public void check(UserDTO userDTO, User user) {
+    public void check(User updateUser, User user) {
 
-        if(userDTO != null && userDTO.getSecretKey() != null){
+        if(updateUser != null && updateUser.getSecretkey() != null){
 
             UserRole userRole = userRoleRepository.findByUserId(user.getId());
 
-            if(userDTO.getSecretKey().equals(secretKey)){
+            if(updateUser.getSecretkey().equals(secretKey)){
                 userRole.setRole("ADMIN");
             }
-            else if(!userDTO.getSecretKey().equals(secretKey)){
+            else if(!updateUser.getSecretkey().equals(secretKey)){
                 userRole.setRole("USER");
             }
 

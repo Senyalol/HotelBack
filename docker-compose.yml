@@ -22,6 +22,7 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_DB: zlatadb
       ADMIN_KEY: jxCa3WucA4sBzw==
+      SIGNATURE_KEY: yQPE6xublU1wnS8demYaZVEqqaV3IHky4w3G3jdxQ3dR61EWLuTgJHzRRrG2TZUOpnXjFPMypB279oSHbFNEqw
     depends_on:
       - postgres
 
