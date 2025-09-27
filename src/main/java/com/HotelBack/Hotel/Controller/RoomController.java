@@ -1,7 +1,7 @@
 package com.HotelBack.Hotel.Controller;
 
 import com.HotelBack.Hotel.DTO.RoomDTO;
-import com.HotelBack.Hotel.Service.RoomService;
+import com.HotelBack.Hotel.Service.RoomService.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

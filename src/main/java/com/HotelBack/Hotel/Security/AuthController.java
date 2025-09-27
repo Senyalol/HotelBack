@@ -1,7 +1,7 @@
 package com.HotelBack.Hotel.Security;
 
 import com.HotelBack.Hotel.Security.SDTO.*;
-import com.HotelBack.Hotel.Service.UserServiceImpl;
+import com.HotelBack.Hotel.Service.UserService.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

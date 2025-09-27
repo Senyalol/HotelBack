@@ -2,7 +2,7 @@ package com.HotelBack.Hotel.Controller;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
-import com.HotelBack.Hotel.Service.UserServiceImpl;
+import com.HotelBack.Hotel.Service.UserService.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
