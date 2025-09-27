@@ -1,14 +1,16 @@
-package com.HotelBack.Hotel.Facade;
+package com.HotelBack.Hotel.Facade.UserFacade;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Security.SDTO.JwtAuthenticationDTO;
 import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
 import com.HotelBack.Hotel.Security.SDTO.RefreshTokenDTO;
 import com.HotelBack.Hotel.Security.SDTO.UserCredentialDTO;
+import org.springframework.stereotype.Component;
 
 import javax.naming.AuthenticationException;
 import java.util.List;
 
+@Component
 public interface UserFacade {
 
     UserDTO findUser(int id);
@@ -30,6 +32,5 @@ public interface UserFacade {
     JwtAuthenticationDTO signIn(UserCredentialDTO userCredentialDTO);
 
     JwtAuthenticationDTO refreshToken(RefreshTokenDTO refreshTokenDTO) throws AuthenticationException;
-
 
 }

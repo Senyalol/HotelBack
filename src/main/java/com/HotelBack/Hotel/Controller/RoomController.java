@@ -1,7 +1,7 @@
 package com.HotelBack.Hotel.Controller;
 
 import com.HotelBack.Hotel.DTO.RoomDTO;
-import com.HotelBack.Hotel.Service.RoomService.RoomService;
+import com.HotelBack.Hotel.Facade.RoomFacade.RoomFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +13,11 @@ import java.util.List;
 @RequestMapping("/api/rooms")
 public class RoomController {
 
-    private final RoomService roomService;
+    private final RoomFacade roomFacade;
 
     @Autowired
-    public RoomController(RoomService roomService) {
-        this.roomService = roomService;
+    public RoomController(RoomFacade roomFacade) {
+        this.roomFacade = roomFacade;
     }
 
     //Получить все номера
@@ -26,7 +26,7 @@ public class RoomController {
     @GetMapping
     public List<RoomDTO> getAllRooms() {
 
-        return roomService.findAllRooms();
+        return roomFacade.findAllRooms();
 
     }
 
@@ -36,7 +36,7 @@ public class RoomController {
     @PostMapping
     public RoomDTO createRoom(@RequestBody RoomDTO roomDTO) {
 
-        return roomService.save(roomDTO);
+        return roomFacade.save(roomDTO);
 
     }
 
@@ -45,7 +45,7 @@ public class RoomController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/update/{id}")
     public RoomDTO updateRoom(@PathVariable int id, @RequestBody RoomDTO roomDTO) {
-        return roomService.editRoom(id, roomDTO);
+        return roomFacade.editRoom(id, roomDTO);
     }
 
     //Удалить номер по id
@@ -53,7 +53,7 @@ public class RoomController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void deleteRoom(@PathVariable int id) {
-        roomService.deleteRoom(id);
+        roomFacade.deleteRoom(id);
     }
 
 }

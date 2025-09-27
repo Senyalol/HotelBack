@@ -1,11 +1,11 @@
 package com.HotelBack.Hotel.Service.RoomService.CreateRoomChecks;
 
-import com.HotelBack.Hotel.DTO.RoomDTO;
+import com.HotelBack.Hotel.Entity.Room;
 
 public class statusCreateChecker implements CreateRoomCheck{
 
     @Override
-    public boolean check(RoomDTO room) {
+    public boolean check(Room room) {
 
         boolean result = true;
         if(room.getStatus().equals(RoomStatus.свободен.toString())){
@@ -18,7 +18,6 @@ public class statusCreateChecker implements CreateRoomCheck{
             return true;
         }
         else if(room.getStatus() == null){
-            //Нужно протестировать
             room.setStatus(RoomStatus.свободен.toString());
             return true;
         }

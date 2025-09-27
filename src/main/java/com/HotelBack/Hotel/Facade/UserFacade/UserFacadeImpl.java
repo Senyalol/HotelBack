@@ -1,4 +1,4 @@
-package com.HotelBack.Hotel.Facade;
+package com.HotelBack.Hotel.Facade.UserFacade;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Mapping.SecurityMapper;

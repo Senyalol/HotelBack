@@ -27,9 +27,6 @@ app:
   admin_key: ${ADMIN_KEY}
   signature_key: ${SIGNATURE_KEY}
 
-#  spring.application.name=Hotel
-
-
 #spring:
 #  application:
 #    name: Hotel
@@ -40,6 +37,11 @@ app:
 #    username: postgres
 #    password: 1111
 #
+#  flyway:
+#    enabled: true
+#    schemas: public
+#    default-schema: public
+#
 #  jpa:
 #    properties:
 #      hibernate:
@@ -47,9 +49,6 @@ app:
 #    hibernate:
 #      ddl-auto: validate
 #
-#  flyway:
-#    enabled: true
-#    schemas: public
-#    default-schema: public
-
-#  spring.application.name=Hotel
+#app:
+#  admin_key: jxCa3WucA4sBzw==
+#  signature_key: yQPE6xublU1wnS8demYaZVEqqaV3IHky4w3G3jdxQ3dR61EWLuTgJHzRRrG2TZUOpnXjFPMypB279oSHbFNEqw

@@ -1,6 +1,5 @@
 package com.HotelBack.Hotel.Service.RoomService.EditRoomChecks;
 
-import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
 import lombok.Data;
 
@@ -16,11 +15,11 @@ public class RoomChecker {
     }
 
 
-    public void check(RoomDTO roomDTO, Room room) {
+    public void check(Room updateRoom, Room room) {
 
         for (EditRoomCheck checker : checks) {
 
-            checker.check(roomDTO, room);
+            checker.check(updateRoom, room);
 
         }
 

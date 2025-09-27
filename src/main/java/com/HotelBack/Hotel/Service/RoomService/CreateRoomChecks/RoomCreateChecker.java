@@ -1,6 +1,6 @@
 package com.HotelBack.Hotel.Service.RoomService.CreateRoomChecks;
 
-import com.HotelBack.Hotel.DTO.RoomDTO;
+import com.HotelBack.Hotel.Entity.Room;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class RoomCreateChecker {
         this.checks = checks;
     }
 
-    public boolean check(RoomDTO roomDTO) {
+    public boolean check(Room roomDTO) {
 
         boolean result = true;
         for(CreateRoomCheck check : checks){

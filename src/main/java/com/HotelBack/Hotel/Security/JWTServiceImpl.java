@@ -19,7 +19,7 @@ import java.time.ZoneId;
 import java.util.Date;
 
 @Service
-public class JWTService {
+public class JWTServiceImpl implements JWTService {
 
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
@@ -28,7 +28,7 @@ public class JWTService {
     private String signatureKey;
 
     @Autowired
-    public JWTService(UserRepository userRepository, UserRoleRepository userRoleRepository) {
+    public JWTServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
     }

@@ -1,16 +1,15 @@
 package com.HotelBack.Hotel.Service.RoomService.EditRoomChecks;
 
-import com.HotelBack.Hotel.DTO.RoomDTO;
 import com.HotelBack.Hotel.Entity.Room;
 
 public class DescriptionChecker implements EditRoomCheck {
     @Override
-    public void check(RoomDTO roomDTO, Room room) {
+    public void check(Room updateRoom, Room room) {
 
-        if(roomDTO != null){
+        if(updateRoom != null){
 
-            if(roomDTO.getDescription() != null){
-                room.setDescription(roomDTO.getDescription());
+            if(updateRoom.getDescription() != null){
+                room.setDescription(updateRoom.getDescription());
             }
 
         }

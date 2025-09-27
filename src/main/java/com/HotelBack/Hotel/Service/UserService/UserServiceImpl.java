@@ -23,7 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-@Transactional
+//@Transactional
 @JsonSerialize
 public class UserServiceImpl implements UserService {
 
@@ -50,9 +50,11 @@ public class UserServiceImpl implements UserService {
     }
 
     //Удалить свой аккаунт
+    @Transactional
     @Override
     public void deleteYourUser(JwtToken jwt){
-        userRepository.deleteUserByEmail(jwtService.parseTokenForEmail(jwt).getEmail());
+        String email = jwtService.parseTokenForEmail(jwt).getEmail();
+        userRepository.deleteUserByEmail(email);
     }
 
     //Посмотреть свои данные

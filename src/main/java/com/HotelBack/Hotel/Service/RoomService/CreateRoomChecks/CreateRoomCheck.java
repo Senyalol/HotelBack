@@ -1,9 +1,9 @@
 package com.HotelBack.Hotel.Service.RoomService.CreateRoomChecks;
 
-import com.HotelBack.Hotel.DTO.RoomDTO;
+import com.HotelBack.Hotel.Entity.Room;
 
 public interface CreateRoomCheck {
 
-    boolean check(RoomDTO room);
+    boolean check(Room room);
 
 }

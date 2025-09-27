@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-
-
     //Из сущности в DTO
     public UserDTO EntityToDTO(User user) {
 
@@ -37,7 +35,8 @@ public class UserMapper {
         user.setEmail(userDTO.getEmail());
         user.setAvatarUser(userDTO.getAvatarUser());
         user.setSecretkey(userDTO.getSecretKey());
-//        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        user.setPassword(userDTO.getPassword());
+        //user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         return user;
 
