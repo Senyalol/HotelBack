@@ -1,7 +1,7 @@
 package com.HotelBack.Hotel.Security;
 
 import com.HotelBack.Hotel.Security.SDTO.*;
-import com.HotelBack.Hotel.Service.UserService;
+import com.HotelBack.Hotel.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     private final JWTService jwtService;
 
     @Autowired
-    public AuthController(UserService userService, JWTService jwtService) {
-        this.userService = userService;
+    public AuthController(UserServiceImpl userServiceImpl, JWTService jwtService) {
+        this.userServiceImpl = userServiceImpl;
         this.jwtService = jwtService;
     }
 
@@ -26,7 +26,7 @@ public class AuthController {
     public ResponseEntity<JwtAuthenticationDTO> SignIn(@RequestBody UserCredentialDTO userCredentialDTO) {
 
         try {
-            return ResponseEntity.ok(userService.signIn(userCredentialDTO));
+            return ResponseEntity.ok(userServiceImpl.signIn(userCredentialDTO));
         }
         catch(Exception e){
             throw new RuntimeException("Authentication failed" + e.getCause());
@@ -39,7 +39,7 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<JwtAuthenticationDTO> RefreshToken(@RequestBody RefreshTokenDTO refreshTokenDTO) {
         try{
-            return ResponseEntity.ok(userService.refreshToken(refreshTokenDTO));
+            return ResponseEntity.ok(userServiceImpl.refreshToken(refreshTokenDTO));
         }
         catch(Exception e){
             throw new RuntimeException("Refresh token - failed" + e.getCause());

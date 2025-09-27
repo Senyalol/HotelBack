@@ -2,7 +2,7 @@ package com.HotelBack.Hotel.Controller;
 
 import com.HotelBack.Hotel.DTO.UserDTO;
 import com.HotelBack.Hotel.Security.SDTO.JwtTokenDTO;
-import com.HotelBack.Hotel.Service.UserService;
+import com.HotelBack.Hotel.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +14,18 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     //Создать пользователя
     //Адрес - http://localhost:8080/api/users
     @PostMapping
     public UserDTO createUser(@RequestBody UserDTO userDTO) {
-        return userService.createUser(userDTO);
+        return userServiceImpl.createUser(userDTO);
     }
 
     //Посмотреть всех пользователей
@@ -33,14 +33,14 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
+        return userServiceImpl.getAllUsers();
     }
 
     //Найти пользователя по id
     //Адрес - http://localhost:8080/api/users/{id}
     @GetMapping("/{id}")
     public UserDTO getUser(@PathVariable int id) {
-        return userService.findUser(id);
+        return userServiceImpl.findUser(id);
     }
 
     //Редактировать пользователя
@@ -48,7 +48,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/update/{id}")
     public UserDTO updateUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
-        return userService.updateUser(id, userDTO);
+        return userServiceImpl.updateUser(id, userDTO);
     }
 
     //@PreAuthorize("hasAuthority('ROLE_ADMIN') || hasAuthority('ROLE_USER')")
@@ -58,7 +58,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
+        userServiceImpl.deleteUser(id);
     }
 
     //Удалить свой аккаунт
@@ -66,7 +66,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @PostMapping("/delete")
     public void deleteYourself(@RequestBody JwtTokenDTO jwtTokenDTO) {
-        userService.deleteYourUser(jwtTokenDTO);
+        userServiceImpl.deleteYourUser(jwtTokenDTO);
     }
 
     //Получить данные своего аккаунта
@@ -74,7 +74,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @PostMapping("/yours")
     public UserDTO getYourself(@RequestBody JwtTokenDTO jwtTokenDTO) {
-        return userService.getYourself(jwtTokenDTO);
+        return userServiceImpl.getYourself(jwtTokenDTO);
     }
 
     //Обновить собственного пользователя
@@ -82,7 +82,7 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') || hasAuthority('USER')")
     @PatchMapping("/update")
     public UserDTO updateYourself(@RequestHeader("Authorization") String authHeader, @RequestBody UserDTO userDTO) {
-        return userService.updateYourSelf(authHeader,userDTO);
+        return userServiceImpl.updateYourSelf(authHeader,userDTO);
     }
 
 }
