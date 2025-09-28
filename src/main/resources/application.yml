@@ -4,51 +4,25 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/Test
-    username: postgres
-    password: 1111
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
 
   flyway:
     enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
     schemas: public
-    default-schema: public
+    placeholders:
+      defaultSchema: public
 
-  jpa:
-    properties:
+    jpa:
       hibernate:
-        default_schema: public
-    hibernate:
-      ddl-auto: validate
+        ddl-auto: validate
+      properties:
+        hibernate:
+          default_schema: public
 
 app:
-  admin_key: jxCa3WucA4sBzw==
-  signature_key: yQPE6xublU1wnS8demYaZVEqqaV3IHky4w3G3jdxQ3dR61EWLuTgJHzRRrG2TZUOpnXjFPMypB279oSHbFNEqw
-
-#spring:
-#  application:
-#    name: Hotel
-#
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
-#    username: ${POSTGRES_USERNAME}
-#    password: ${POSTGRES_PASSWORD}
-#
-#  flyway:
-#    enabled: true
-#    baseline-on-migrate: true
-#    locations: classpath:db/migration
-#    schemas: public
-#    placeholders:
-#      defaultSchema: public
-#
-#    jpa:
-#      hibernate:
-#        ddl-auto: validate
-#      properties:
-#        hibernate:
-#          default_schema: public
-#
-#app:
-#  admin_key: ${ADMIN_KEY}
-#  signature_key: ${SIGNATURE_KEY}
+  admin_key: ${ADMIN_KEY}
+  signature_key: ${SIGNATURE_KEY}

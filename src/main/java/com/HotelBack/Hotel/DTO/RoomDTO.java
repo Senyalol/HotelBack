@@ -38,5 +38,4 @@ public class RoomDTO {
     @JsonProperty("status")
     private String status;
 
-
 }
