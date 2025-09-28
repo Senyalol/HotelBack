@@ -5,7 +5,6 @@ import com.HotelBack.Hotel.Entity.SecurityEntity.JwtAuthentication;
 import com.HotelBack.Hotel.Entity.SecurityEntity.JwtToken;
 import com.HotelBack.Hotel.Entity.User;
 import com.HotelBack.Hotel.Repository.UserRepository;
-import com.HotelBack.Hotel.Repository.UserRoleRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -22,15 +21,13 @@ import java.util.Date;
 public class JWTServiceImpl implements JWTService {
 
     private final UserRepository userRepository;
-    private final UserRoleRepository userRoleRepository;
 
     @Value("${app.signature_key}")
     private String signatureKey;
 
     @Autowired
-    public JWTServiceImpl(UserRepository userRepository, UserRoleRepository userRoleRepository) {
+    public JWTServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
     }
 
     //Получить подпись ключа
@@ -48,7 +45,7 @@ public class JWTServiceImpl implements JWTService {
 
         User certainUser = userRepository.findByEmail(email);
 
-        return userRoleRepository.findByUserId(certainUser.getId()).getRole();
+        return certainUser.getRole();
     }
 
     //Валидация токена , проверка на ориг

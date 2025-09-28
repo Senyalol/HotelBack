@@ -50,13 +50,7 @@ public class User {
     @Column(name = "secretkey", length = 100)
     private String secretkey;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Booking> bookings = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    private Set<Review> reviews = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    private Set<UserRole> userRoles = new LinkedHashSet<>();
+    @Column(name = "role")
+    private String role;
 
 }
