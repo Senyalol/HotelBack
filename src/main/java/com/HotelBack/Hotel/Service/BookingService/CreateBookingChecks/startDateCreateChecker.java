@@ -1,14 +1,14 @@
 package com.HotelBack.Hotel.Service.BookingService.CreateBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
+import com.HotelBack.Hotel.Entity.Booking;
 
 public class startDateCreateChecker implements CreateBookingCheck{
     @Override
-    public boolean check(BookingDTO bookingDTO) {
+    public boolean check(Booking booking) {
 
         boolean result = true;
 
-        if(bookingDTO == null || bookingDTO.getStartDate() == null){
+        if(booking == null || booking.getStartDate() == null){
          result = false;
         }
 

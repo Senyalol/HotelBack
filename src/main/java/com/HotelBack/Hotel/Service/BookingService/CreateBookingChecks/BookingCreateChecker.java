@@ -1,6 +1,6 @@
 package com.HotelBack.Hotel.Service.BookingService.CreateBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
+import com.HotelBack.Hotel.Entity.Booking;
 import lombok.Data;
 
 import java.util.List;
@@ -14,13 +14,13 @@ public class BookingCreateChecker {
         this.checks = checks;
     }
 
-    public boolean check(BookingDTO bookingDTO) {
+    public boolean check(Booking booking) {
 
         boolean result = true;
 
         for(CreateBookingCheck check : checks) {
 
-            if(!check.check(bookingDTO)) {
+            if(!check.check(booking)) {
                 result = false;
             }
 

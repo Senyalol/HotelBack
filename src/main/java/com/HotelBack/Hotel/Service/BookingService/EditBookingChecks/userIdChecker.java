@@ -1,9 +1,7 @@
 package com.HotelBack.Hotel.Service.BookingService.EditBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
 import com.HotelBack.Hotel.Entity.Booking;
 import com.HotelBack.Hotel.Repository.UserRepository;
-
 
 public class userIdChecker implements EditBookingCheck{
 
@@ -14,15 +12,16 @@ public class userIdChecker implements EditBookingCheck{
     }
 
     @Override
-    public void check(BookingDTO bookingDTO, Booking booking) {
+    public void check(Booking updateBooking, Booking booking) {
 
-        if(bookingDTO != null && bookingDTO.getUserId() != null){
-            int userId = bookingDTO.getUserId();
+        if(updateBooking != null && updateBooking.getUser().getId() != null){
+            int userId = updateBooking.getUser().getId();
 
             booking.setUser(userRepository.findById(userId));
-
+            booking.setRoom(updateBooking.getRoom());
 
         }
 
     }
+
 }

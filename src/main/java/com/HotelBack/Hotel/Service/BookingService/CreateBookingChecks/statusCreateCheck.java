@@ -1,21 +1,21 @@
 package com.HotelBack.Hotel.Service.BookingService.CreateBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
+import com.HotelBack.Hotel.Entity.Booking;
 
 public class statusCreateCheck implements CreateBookingCheck{
     @Override
-    public boolean check(BookingDTO bookingDTO) {
+    public boolean check(Booking booking) {
 
 
-        if(bookingDTO.getStatus() == null){
+        if(booking.getStatus() == null){
             //Нужно протестировать
-            bookingDTO.setStatus(BookingStatus.активно.toString());
+            booking.setStatus(BookingStatus.активно.toString());
             return true;
         }
-        else if(bookingDTO.getStatus().equals(BookingStatus.активно.toString())){
+        else if(booking.getStatus().equals(BookingStatus.активно.toString())){
             return true;
         }
-        else if(bookingDTO.getStatus().equals(BookingStatus.отменено.toString())){
+        else if(booking.getStatus().equals(BookingStatus.отменено.toString())){
             return true;
         }
 

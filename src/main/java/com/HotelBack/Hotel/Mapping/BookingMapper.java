@@ -52,4 +52,32 @@ public class BookingMapper {
         return booking;
     }
 
+    public Booking DTOToEntityUpdate(BookingDTO existBooking,BookingDTO bookingDTO) {
+
+        Booking booking = new Booking();
+
+        booking.setId(bookingDTO.getBookingId());
+
+        if (existBooking.getUserId() == bookingDTO.getUserId() || bookingDTO.getUserId() == null){
+            booking.setUser(userRepository.findById(existBooking.getUserId()).get());
+        }
+        else{
+            booking.setUser(userRepository.findById(bookingDTO.getUserId()).get());
+        }
+
+        if(existBooking.getRoom_id() == bookingDTO.getRoom_id() || bookingDTO.getRoom_id() == null) {
+            booking.setRoom(roomRepository.findById(existBooking.getRoom_id()).get());
+        }
+        else{
+            booking.setRoom(roomRepository.findById(bookingDTO.getRoom_id()).get());
+        }
+
+
+        booking.setStartDate(bookingDTO.getStartDate());
+        booking.setEndDate(bookingDTO.getEndDate());
+        booking.setStatus(bookingDTO.getStatus());
+
+        return booking;
+    }
+
 }

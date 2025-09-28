@@ -1,6 +1,5 @@
 package com.HotelBack.Hotel.Service.BookingService.EditBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
 import com.HotelBack.Hotel.Entity.Booking;
 import lombok.Data;
 
@@ -15,10 +14,10 @@ public class BookingChecker {
         this.checks = checks;
     }
 
-    public void check(BookingDTO bookingDTO, Booking booking) {
+    public void check(Booking updateBooking, Booking booking) {
 
         for (EditBookingCheck check : checks) {
-            check.check(bookingDTO, booking);
+            check.check(updateBooking, booking);
         }
 
     }

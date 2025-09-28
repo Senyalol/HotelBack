@@ -1,15 +1,15 @@
 package com.HotelBack.Hotel.Service.BookingService.EditBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
 import com.HotelBack.Hotel.Entity.Booking;
 
 public class endDateChecker implements EditBookingCheck{
     @Override
-    public void check(BookingDTO bookingDTO, Booking booking) {
+    public void check(Booking updateBooking, Booking booking) {
 
-        if(bookingDTO != null && bookingDTO.getEndDate() != null){
+        if(updateBooking != null && updateBooking.getEndDate() != null){
 
-            booking.setEndDate(bookingDTO.getEndDate());
+
+            booking.setEndDate(updateBooking.getEndDate());
 
         }
 

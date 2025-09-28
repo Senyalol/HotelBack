@@ -1,9 +1,9 @@
 package com.HotelBack.Hotel.Service.BookingService.CreateBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
+import com.HotelBack.Hotel.Entity.Booking;
 
 public interface CreateBookingCheck {
 
-    boolean check(BookingDTO bookingDTO);
+    boolean check(Booking booking);
 
 }

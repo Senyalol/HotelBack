@@ -1,6 +1,6 @@
 package com.HotelBack.Hotel.Service.BookingService.CreateBookingChecks;
 
-import com.HotelBack.Hotel.DTO.BookingDTO;
+import com.HotelBack.Hotel.Entity.Booking;
 import com.HotelBack.Hotel.Repository.UserRepository;
 
 public class userIdCreateChecker implements CreateBookingCheck{
@@ -12,11 +12,12 @@ public class userIdCreateChecker implements CreateBookingCheck{
     }
 
     @Override
-    public boolean check(BookingDTO bookingDTO) {
+    public boolean check(Booking booking) {
 
         boolean result = true;
 
-         if(bookingDTO == null || bookingDTO.getUserId() == null || userRepository.findById(bookingDTO.getUserId()).isEmpty()){
+         if(booking == null || booking.getUser().getId() == null
+                 || userRepository.findById(booking.getUser().getId()).isEmpty()){
 
             result = false;
         }
